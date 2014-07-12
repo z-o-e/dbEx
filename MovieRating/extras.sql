@@ -81,19 +81,6 @@ from (reviewer join rating using(rID)) join movie using(mID)) A,
 where A.stars >= any (select director, stars
 from (reviewer join rating using(rID)) join movie) B);
 
-/* For each director, return the director's name together with the title(s) of the movie(s) they directed that received the highest rating among all of their movies, and the value of that rating. Ignore movies whose director is NULL. */
-select C.director, C.title, max(C.stars)
-from 
-(select A.stars, A.title, A.director
-from
-(select * 
-from reviewer join rating using(rID) join movie using(mID))A
-join 
-(select * 
-from reviewer join rating using(rID) join movie using(mID))B
-using(mID)) C
-group by C.director;
-
 /* For each director, return the director's name together with the title(s) of the movie(s) they directed that received the highest rating among all of their movies, and the value of that rating. Ignore movies whose director is NULL.  */
 select C.director, C.title, max(C.stars)
 from 
